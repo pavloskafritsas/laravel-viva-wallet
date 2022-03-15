@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Deyjandi\VivaWallet\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class VivaWalletCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-viva-wallet';
 
     public $description = 'My command';
 

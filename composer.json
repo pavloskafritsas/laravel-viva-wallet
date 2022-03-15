@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "deyjandi/laravel-viva-wallet",
+    "description": "Implementation of viva wallet's API for laravel projects",
     "keywords": [
-        ":vendor_name",
+        "Deyjandi",
         "laravel",
-        ":package_slug"
+        "laravel-viva-wallet"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/deyjandi/laravel-viva-wallet",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Pavlos Kafritsas",
+            "email": "pavkfr@hotmail.com",
             "role": "Developer"
         }
     ],
@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Deyjandi\\VivaWallet\\": "src",
+            "Deyjandi\\VivaWallet\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Deyjandi\\VivaWallet\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -49,15 +49,19 @@
         "test-coverage": "vendor/bin/pest --coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Deyjandi\\VivaWallet\\VivaWalletServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "VivaWallet": "Deyjandi\\VivaWallet\\Facades\\VivaWallet"
             }
         }
     },
