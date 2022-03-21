@@ -7,7 +7,8 @@ use Deyjandi\VivaWallet\Traits\HasEnv;
 
 class VivaWalletWebhook
 {
-    use HasClient, HasEnv;
+    use HasClient;
+    use HasEnv;
 
     private string $merchantId;
 
@@ -57,7 +58,7 @@ class VivaWalletWebhook
 
     public function verifyEndpointResponse(): array
     {
-        if (!$this->webhookKey) {
+        if (! $this->webhookKey) {
             // @todo use custom exception class
             throw new \Exception('Webhook verification key not set.');
         }

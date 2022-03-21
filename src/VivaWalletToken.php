@@ -109,7 +109,7 @@ class VivaWalletToken implements AuthToken
 
     public static function getInstance(): static
     {
-        return Cache::get(self::CACHE_KEY) ?? (new self)->requestToken();
+        return Cache::get(self::CACHE_KEY) ?? (new self())->requestToken();
     }
 
     public function refresh(): static

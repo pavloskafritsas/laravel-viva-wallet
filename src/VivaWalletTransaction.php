@@ -24,7 +24,7 @@ class VivaWalletTransaction
      */
     public function retrieve(string $transactionId): array
     {
-        if (!Uuid::isValid($transactionId)) {
+        if (! Uuid::isValid($transactionId)) {
             throw new InvalidArgumentException('Transaction id is invalid.');
         }
 
