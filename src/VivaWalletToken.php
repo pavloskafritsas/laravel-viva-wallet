@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Deyjandi\VivaWallet\Contracts\AuthToken;
 use Deyjandi\VivaWallet\Traits\HasClient;
 use Deyjandi\VivaWallet\Traits\HasEnv;
+use Illuminate\Support\Facades\Cache;
 
 class VivaWalletToken implements AuthToken
 {
@@ -13,8 +14,6 @@ class VivaWalletToken implements AuthToken
     use HasEnv;
 
     private const CACHE_KEY = 'viva_wallet_token';
-
-    private string $method;
 
     private string $clientId;
 
@@ -90,7 +89,12 @@ class VivaWalletToken implements AuthToken
 
     private function requestToken(): static
     {
-        $response = $this->request(...$this->env->requestToken());
+        $response = $this->request(
+            ...$this->env->requestToken(
+                $this->clientId,
+                $this->clientSecret
+            )
+        );
 
         $this->accessToken = $response['access_token'];
         $this->expiresIn = $response['expires_in'];
@@ -98,14 +102,14 @@ class VivaWalletToken implements AuthToken
         $this->scope = $response['scope'];
         $this->issuedAt = CarbonImmutable::now();
 
-        cache([static::CACHE_KEY => $this], $this->issuedAt->addSeconds($this->expiresIn - 30));
+        Cache::put(self::CACHE_KEY, $this, $this->issuedAt->addSeconds($this->expiresIn - 30));
 
         return $this;
     }
 
     public static function getInstance(): static
     {
-        return cache(static::CACHE_KEY) ?? (new static())->requestToken();
+        return Cache::get(self::CACHE_KEY) ?? (new self())->requestToken();
     }
 
     public function refresh(): static

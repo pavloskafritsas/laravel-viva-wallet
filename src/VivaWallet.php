@@ -4,6 +4,8 @@ namespace Deyjandi\VivaWallet;
 
 class VivaWallet
 {
+    private array $config;
+
     public function __construct()
     {
         $this->config = config('viva-wallet');
