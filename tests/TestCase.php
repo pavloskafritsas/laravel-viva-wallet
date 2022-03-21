@@ -2,8 +2,8 @@
 
 namespace Deyjandi\VivaWallet\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use Deyjandi\VivaWallet\VivaWalletServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

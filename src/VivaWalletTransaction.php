@@ -9,7 +9,8 @@ use Ramsey\Uuid\Uuid;
 
 class VivaWalletTransaction
 {
-    use HasClient, HasEnv;
+    use HasClient;
+    use HasEnv;
 
     public function __construct(array $config)
     {
@@ -25,7 +26,7 @@ class VivaWalletTransaction
      */
     public function retrieve(string $transaction_id): array
     {
-        if (!Uuid::isValid($transaction_id)) {
+        if (! Uuid::isValid($transaction_id)) {
             throw new InvalidArgumentException('Transaction id is invalid.');
         }
 

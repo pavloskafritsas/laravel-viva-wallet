@@ -10,7 +10,9 @@ use InvalidArgumentException;
 
 class VivaWalletPayment
 {
-    use FiltersUnsetData, HasClient, HasEnv;
+    use FiltersUnsetData;
+    use HasClient;
+    use HasEnv;
 
     /**
      * The amount associated with this payment order. Must be a positive, non-zero number.
@@ -148,7 +150,7 @@ class VivaWalletPayment
     {
         if (strlen((string) $amount) > 30) {
             throw new InvalidArgumentException('Amount length must be less than or equal to 30.');
-        } else if ($amount <= 0) {
+        } elseif ($amount <= 0) {
             throw new InvalidArgumentException('Amount must be a positive, non-zero number.');
         }
 
@@ -159,7 +161,7 @@ class VivaWalletPayment
 
     public function setCustomerTrns(?string $customerTrns): static
     {
-        if (!$customerTrns && strlen($customerTrns) > 2048) {
+        if (! $customerTrns && strlen($customerTrns) > 2048) {
             throw new InvalidArgumentException('CustomerTrns length must be less than or equal to 2048.');
         }
 
@@ -222,7 +224,7 @@ class VivaWalletPayment
     {
         if ($tipAmount && $tipAmount < 0) {
             throw new InvalidArgumentException('tipAmount value must be greater than 0.');
-        } else if ($tipAmount > $this->amount) {
+        } elseif ($tipAmount > $this->amount) {
             throw new InvalidArgumentException('tipAmount value cannot exceed the amount value.');
         }
 

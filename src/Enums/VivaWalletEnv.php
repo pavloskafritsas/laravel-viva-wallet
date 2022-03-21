@@ -26,7 +26,7 @@ enum VivaWalletEnv: string
             },
             'options' => [
                 'auth' => ClientAuth::basic(config(self::CFG_KEY_USERNAME), config(self::CFG_KEY_PASSWORD)),
-            ]
+            ],
         ];
     }
 
@@ -41,8 +41,8 @@ enum VivaWalletEnv: string
             'options' => [
                 'auth' => ClientAuth::basic(config(self::CFG_KEY_CLIENT_ID), config(self::CFG_KEY_CLIENT_SECRET)),
                 'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
-                'form_params' => ['grant_type' => 'client_credentials']
-            ]
+                'form_params' => ['grant_type' => 'client_credentials'],
+            ],
         ];
     }
 
@@ -57,10 +57,10 @@ enum VivaWalletEnv: string
             'options' => [
                 'headers' => [
                     'Authorization' => ClientAuth::token(VivaWalletToken::getInstance()),
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ],
                 'json' => $data,
-            ]
+            ],
         ];
     }
 
@@ -83,8 +83,8 @@ enum VivaWalletEnv: string
             'options' => [
                 'headers' => [
                     'Authorization' => ClientAuth::token(VivaWalletToken::getInstance()),
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

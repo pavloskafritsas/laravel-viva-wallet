@@ -19,7 +19,7 @@ class RequestWebhookKey extends Command
     {
         $this->envPath = base_path('.env');
 
-        if (env(self::ENV_KEY) && !$this->option('force')) {
+        if (env(self::ENV_KEY) && ! $this->option('force')) {
             if ($this->confirm('Webhook verification key already exists. Do you wish to continue?')) {
                 $this->replaceEnvKey();
             } else {

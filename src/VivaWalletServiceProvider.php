@@ -13,7 +13,6 @@ class VivaWalletServiceProvider extends PackageServiceProvider
         $this->app->bind('viva-wallet', fn ($app) => new VivaWallet());
 
         if ($this->app->runningInConsole() || $this->app->runningUnitTests()) {
-
             $this->publishes([
                 __DIR__ . '/../config/viva-wallet.php' => config_path('viva-wallet.php'),
             ], 'config');

@@ -9,7 +9,8 @@ use Deyjandi\VivaWallet\Traits\HasEnv;
 
 class VivaWalletToken implements AuthToken
 {
-    use HasClient, HasEnv;
+    use HasClient;
+    use HasEnv;
 
     private const CACHE_KEY = 'viva_wallet_token';
 
@@ -104,7 +105,7 @@ class VivaWalletToken implements AuthToken
 
     public static function getInstance(): static
     {
-        return cache(static::CACHE_KEY) ?? (new static)->requestToken();
+        return cache(static::CACHE_KEY) ?? (new static())->requestToken();
     }
 
     public function refresh(): static
