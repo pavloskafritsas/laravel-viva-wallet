@@ -2,13 +2,14 @@ name: run-tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop, test]
   pull_request:
-    branches: [main]
+    branches: [main, develop, test]
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    environment: testing
     strategy:
       fail-fast: true
       matrix:
@@ -24,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -45,3 +46,14 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_ENV: ${{ secrets.APP_ENV }}
+          CACHE_DRIVER: ${{ secrets.CACHE_DRIVER }}
+          FILESYSTEM_DISK: ${{ secrets.FILESYSTEM_DISK }}
+          VIVA_WALLET_ENV: ${{ secrets.VIVA_WALLET_ENV }}
+          VIVA_WALLET_MERCHANT_ID: ${{ secrets.VIVA_WALLET_MERCHANT_ID }}
+          VIVA_WALLET_API_KEY: ${{ secrets.VIVA_WALLET_API_KEY }}
+          VIVA_WALLET_CLIENT_ID: ${{ secrets.VIVA_WALLET_CLIENT_ID }}
+          VIVA_WALLET_CLIENT_SECRET: ${{ secrets.VIVA_WALLET_CLIENT_SECRET }}
+          VIVA_WALLET_PAYMENT_SOURCE_CODE: ${{ secrets.VIVA_WALLET_PAYMENT_SOURCE_CODE }}
