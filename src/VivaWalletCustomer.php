@@ -78,7 +78,7 @@ class VivaWalletCustomer
     public function setEmail(?string $email): static
     {
         if ($email && strlen($email) > 50) {
-            throw new InvalidArgumentException('Customer\'s email value must be less than 50 characters.', static::EX_CODE);
+            throw new InvalidArgumentException('Customer\'s email value must be less than 50 characters.', self::EX_CODE);
         }
 
         $this->email = $email;
@@ -89,7 +89,7 @@ class VivaWalletCustomer
     public function setFullName(?string $fullName): static
     {
         if ($fullName && strlen($fullName) > 50) {
-            throw new InvalidArgumentException('Customer\'s email value must be less than 50 characters.', static::EX_CODE);
+            throw new InvalidArgumentException('Customer\'s email value must be less than 50 characters.', self::EX_CODE);
         }
 
         $this->fullName = $fullName;
@@ -100,7 +100,7 @@ class VivaWalletCustomer
     public function setPhone(?string $phone): static
     {
         if ($phone && strlen($phone) > 30) {
-            throw new InvalidArgumentException('Customer\'s phone value must be less than 30 characters.', static::EX_CODE);
+            throw new InvalidArgumentException('Customer\'s phone value must be less than 30 characters.', self::EX_CODE);
         }
 
         $this->phone = $phone;
@@ -111,7 +111,7 @@ class VivaWalletCustomer
     public function setCountryCode(?string $countryCode): static
     {
         if ($countryCode && strlen($countryCode) !== 2) {
-            throw new InvalidArgumentException('Customer\'s country code value is invalid.', static::EX_CODE);
+            throw new InvalidArgumentException('Customer\'s country code value is invalid.', self::EX_CODE);
         }
 
         $this->countryCode = $countryCode;

@@ -14,8 +14,6 @@ class VivaWalletTransaction
 
     public function __construct(array $config)
     {
-        $this->config = $config;
-
         $this->setEnv($config['env']);
     }
 
@@ -24,12 +22,12 @@ class VivaWalletTransaction
      *
      * @see https://developer.vivawallet.com/apis-for-payments/payment-api/#tag/Transactions/paths/~1checkout~1v2~1transactions~1{transactionId}/get
      */
-    public function retrieve(string $transaction_id): array
+    public function retrieve(string $transactionId): array
     {
-        if (! Uuid::isValid($transaction_id)) {
+        if (!Uuid::isValid($transactionId)) {
             throw new InvalidArgumentException('Transaction id is invalid.');
         }
 
-        return $this->request(...$this->env->retrieveTransaction($transaction_id));
+        return $this->request(...$this->env->retrieveTransaction($transactionId));
     }
 }

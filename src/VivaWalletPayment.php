@@ -161,7 +161,7 @@ class VivaWalletPayment
 
     public function setCustomerTrns(?string $customerTrns): static
     {
-        if (! $customerTrns && strlen($customerTrns) > 2048) {
+        if (!$customerTrns && strlen($customerTrns) > 2048) {
             throw new InvalidArgumentException('CustomerTrns length must be less than or equal to 2048.');
         }
 
@@ -204,11 +204,11 @@ class VivaWalletPayment
 
     public function setMaxInstallments(int $maxInstallments): static
     {
-        $this->maxInstallments = $maxInstallments;
-
         if ($maxInstallments < 0 || $maxInstallments > 36) {
             throw new InvalidArgumentException('maxInstallments value must be between 0 and 36');
         }
+
+        $this->maxInstallments = $maxInstallments;
 
         return $this;
     }
@@ -278,10 +278,11 @@ class VivaWalletPayment
     public function setTags(?array $tags): static
     {
         if ($tags) {
-            collect($tags)->each(
-                fn (mixed $tag) =>
-                is_string($tag) or throw new InvalidArgumentException('tags must be an array of strings.')
-            );
+            collect($tags)->each(function (mixed $tag) {
+                if (!is_string($tag)) {
+                    throw new InvalidArgumentException('tags must be an array of strings.');
+                }
+            });
         }
 
         $this->tags = $tags;
@@ -322,12 +323,10 @@ class VivaWalletPayment
 
     public function setConfig(array $config): static
     {
-        $this->config = $config;
-
-        $configPayment = $this->config['payment'];
+        $configPayment = $config['payment'];
 
         $this
-            ->setEnv($this->config['env'])
+            ->setEnv($config['env'])
             ->setPreauth($configPayment['preauth'])
             ->setPaymentTimeOut($configPayment['timeout'])
             ->setDisableCash($configPayment['disable_cash'])
