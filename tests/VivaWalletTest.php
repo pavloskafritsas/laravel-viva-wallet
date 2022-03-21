@@ -9,6 +9,6 @@ it('can create payment order', function () {
     )->toBeString();
 });
 
-it('can generate webhook verification key', function () {
+it('can request webhook verification key', function () {
     expect(VivaWallet::requestWebhookKey())->toBeString();
 });
