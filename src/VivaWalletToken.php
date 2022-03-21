@@ -83,7 +83,7 @@ class VivaWalletToken implements AuthToken
         return $this->scope;
     }
 
-    private function isExpired(): bool
+    public function isExpired(): bool
     {
         return now()->gte($this->issuedAt->addSeconds($this->getExpiresIn()));
     }

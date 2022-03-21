@@ -4,7 +4,9 @@ use Deyjandi\VivaWallet\VivaWalletToken;
 use Illuminate\Support\Carbon;
 
 it('can issue auth token', function () {
-    expect(VivaWalletToken::getInstance())->toBeString();
+    $token = VivaWalletToken::getInstance();
+
+    expect($token->getAccessToken())->toBeString();
 });
 
 it('can hit cache', function () {
@@ -13,10 +15,12 @@ it('can hit cache', function () {
     expect(cache('viva_wallet_token'))->toEqual($token);
 });
 
-it('can expire from cache', function () {
+it('can expire', function () {
     $token = VivaWalletToken::getInstance();
 
     Carbon::setTestNow(now()->addSeconds($token->getExpiresIn()));
+
+    expect($token->isExpired())->toBeTrue();
 
     expect(cache('viva_wallet_token'))->toBeNull();
 });
