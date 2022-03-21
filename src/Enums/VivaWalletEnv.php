@@ -10,13 +10,7 @@ enum VivaWalletEnv: string
     case Demo = 'demo';
     case Live = 'live';
 
-    private const CFG_KEY_USERNAME = 'viva-wallet.merchant_id';
-    private const CFG_KEY_PASSWORD = 'viva-wallet.api_key';
-
-    private const CFG_KEY_CLIENT_ID = 'viva-wallet.client_id';
-    private const CFG_KEY_CLIENT_SECRET = 'viva-wallet.client_secret';
-
-    public function requestWebhookKey(): array
+    public function requestWebhookKey(string $merchantId, string $apiKey): array
     {
         return [
             'method' => 'GET',
@@ -25,12 +19,12 @@ enum VivaWalletEnv: string
                 self::Live => 'https://www.vivapayments.com/api/messages/config/token',
             },
             'options' => [
-                'auth' => ClientAuth::basic(config(self::CFG_KEY_USERNAME), config(self::CFG_KEY_PASSWORD)),
+                'auth' => ClientAuth::basic($merchantId, $apiKey),
             ],
         ];
     }
 
-    public function requestToken(): array
+    public function requestToken(string $clientId, string $clientSecret): array
     {
         return [
             'method' => 'POST',
@@ -39,7 +33,7 @@ enum VivaWalletEnv: string
                 self::Live => 'https://accounts.vivapayments.com/connect/token',
             },
             'options' => [
-                'auth' => ClientAuth::basic(config(self::CFG_KEY_CLIENT_ID), config(self::CFG_KEY_CLIENT_SECRET)),
+                'auth' => ClientAuth::basic($clientId, $clientSecret),
                 'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
                 'form_params' => ['grant_type' => 'client_credentials'],
             ],
