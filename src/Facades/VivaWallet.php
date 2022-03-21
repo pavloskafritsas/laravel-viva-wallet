@@ -11,6 +11,6 @@ class VivaWallet extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'laravel-viva-wallet';
+        return 'viva-wallet';
     }
 }

@@ -2,24 +2,31 @@
 
 namespace Deyjandi\VivaWallet;
 
+use Deyjandi\VivaWallet\Commands\RequestWebhookKey;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Deyjandi\VivaWallet\Commands\VivaWalletCommand;
 
 class VivaWalletServiceProvider extends PackageServiceProvider
 {
+    public function boot(): void
+    {
+        $this->app->bind('viva-wallet', fn ($app) => new VivaWallet());
+
+        if ($this->app->runningInConsole() || $this->app->runningUnitTests()) {
+
+            $this->publishes([
+                __DIR__ . '/../config/viva-wallet.php' => config_path('viva-wallet.php'),
+            ], 'config');
+
+            $this->commands([RequestWebhookKey::class]);
+        }
+    }
+
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package
-            ->name('laravel-viva-wallet')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-viva-wallet_table')
-            ->hasCommand(VivaWalletCommand::class);
+            ->name('viva-wallet')
+            ->hasCommands([RequestWebhookKey::class])
+            ->hasConfigFile();
     }
 }
