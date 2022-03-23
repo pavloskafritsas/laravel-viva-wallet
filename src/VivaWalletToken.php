@@ -121,7 +121,7 @@ class VivaWalletToken implements AuthToken
             return $instance;
         }
 
-        return (new self)->requestToken();
+        return (new self())->requestToken();
     }
 
     public function refresh(): static

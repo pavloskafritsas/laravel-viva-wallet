@@ -355,7 +355,7 @@ class VivaWalletPayment
 
     public function createOrder(): string
     {
-        if (!isset($this->amount)) {
+        if (! isset($this->amount)) {
             throw new InvalidArgumentException('You need to set the payment amount before creating the order.', 500);
         }
 
