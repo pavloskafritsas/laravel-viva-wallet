@@ -9,4 +9,6 @@ interface AuthToken
     public function getAccessToken(): string;
 
     public function getTokenType(): string;
+
+    public function refresh(): self;
 }
