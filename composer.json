@@ -48,7 +48,7 @@
         }
     },
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": "vendor/bin/phpstan analyse --memory-limit 256M",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage"
     },
