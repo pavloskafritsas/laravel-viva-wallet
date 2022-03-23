@@ -308,16 +308,14 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function __construct(int $amount, ?VivaWalletCustomer $customer = null, ?array $config = null)
+    public function __construct(?int $amount = null, ?VivaWalletCustomer $customer = null)
     {
-        $this->setAmount($amount);
+        if ($amount) {
+            $this->setAmount($amount);
+        }
 
         if ($customer) {
             $this->setCustomer($customer);
-        }
-
-        if ($config) {
-            $this->setConfig($config);
         }
     }
 
@@ -355,6 +353,10 @@ class VivaWalletPayment
 
     public function createOrder(): string
     {
+        if (! isset($this->amount)) {
+            throw new InvalidArgumentException('You need to set the payment amount before creating the order.', 500);
+        }
+
         return $this->request(...$this->env->createOrder($this->toArray()))['orderCode'];
     }
 
