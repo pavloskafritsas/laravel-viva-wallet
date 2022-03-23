@@ -1,7 +1,5 @@
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
-# Implementation of viva wallet's API for laravel projects
+# Implementation of Viva Wallet's API for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/deyjandi/laravel-viva-wallet.svg?style=flat-square)](https://packagist.org/packages/deyjandi/laravel-viva-wallet)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/deyjandi/laravel-viva-wallet/run-tests?label=tests)](https://github.com/deyjandi/laravel-viva-wallet/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -10,54 +8,102 @@
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-viva-wallet.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-viva-wallet)
+## Installation steps
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
-## Installation
-
-You can install the package via composer:
+### 1. install the package via composer:
 
 ```bash
 composer require deyjandi/laravel-viva-wallet
 ```
 
-You can publish and run the migrations with:
+### 2. Publish the `config` file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-viva-wallet-migrations"
-php artisan migrate
+php artisan vendor:publish --tag="viva-wallet-config"
 ```
 
-You can publish the config file with:
-
+### 3. Add at minimum the following to the `.env` file
 ```bash
-php artisan vendor:publish --tag="laravel-viva-wallet-config"
+VIVA_WALLET_MERCHANT_ID=<your-merchant-id>
+VIVA_WALLET_API_KEY=<your-api-id>
+VIVA_WALLET_CLIENT_ID=<your-smart-checkout-client-id>
+VIVA_WALLET_CLIENT_SECRET=<your-smart-checkout-secret>
 ```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-viva-wallet-views"
-```
+You can refer to the `./config/viva-wallet-config.php` for additional configuration options
 
 ## Usage
 
+
+### Create a Payment Order using the default configuration:
+
 ```php
-$vivaWallet = new Deyjandi\VivaWallet();
-echo $vivaWallet->echoPhrase('Hello, Deyjandi!');
+...
+use Deyjandi\VivaWallet\Facades\VivaWallet;
+use Deyjandi\VivaWallet\Payment;
+
+...
+
+$payment = new Payment($amount = 1000);
+
+$checkoutUrl = VivaWallet::createPaymentOrder($payment);
+
+...
 ```
+
+### Create a Payment Order specifying every configurable option:
+
+```php
+...
+use Deyjandi\VivaWallet\Enums\RequestLang;
+use Deyjandi\VivaWallet\Enums\PaymentMethod;
+use Deyjandi\VivaWallet\Facades\VivaWallet;
+use Deyjandi\VivaWallet\Customer;
+use Deyjandi\VivaWallet\Payment;
+
+...
+
+$customer = new Customer(
+    $email = 'example@test.com',
+    $fullName = 'John Doe',
+    $phone = '+306987654321',
+    $countryCode = 'GR',
+    $requestLang = RequestLang::Greek,
+);
+
+$payment = new Payment();
+
+$payment
+    ->setAmount(2500)
+    ->setCustomerTrns('short description of the items/services being purchased')
+    ->setCustomer($customer)
+    ->setPaymentTimeout(3600)
+    ->setPreauth(false)
+    ->setAllowRecurring(true)
+    ->setMaxInstallments(3)
+    ->setPaymentNotification(true)
+    ->setTipAmount(250)
+    ->setDisableExactAmount(false)
+    ->setDisableCash(true)
+    ->setDisableWallet(false)
+    ->setSourceCode(1234)
+    ->setMerchantTrns('customer order reference number')
+    ->setTags(['tag-1', 'tag-2'])
+    ->setBrandColor('009688')
+    ->setPreselectedPaymentMethod(PaymentMethod::PayPal);
+
+$checkoutUrl = VivaWallet::createPaymentOrder($payment);
+
+...
+```
+
+
+### Request a webhook verification key:
+```bash
+php artisan viva-wallet:webhook-key
+```
+#### the webhook verification key is stored to the `.env` file automatically
+
 
 ## Testing
 
@@ -80,7 +126,6 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Pavlos Kafritsas](https://github.com/Deyjandi)
-- [All Contributors](../../contributors)
 
 ## License
 
