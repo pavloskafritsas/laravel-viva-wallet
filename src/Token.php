@@ -13,6 +13,8 @@ class Token implements AuthToken
     use HasClient;
     use HasEnv;
 
+    private static ?self $instance = null;
+
     private const CACHE_KEY = 'viva_wallet_token';
 
     private string $clientId;
@@ -29,9 +31,11 @@ class Token implements AuthToken
 
     private CarbonImmutable $issuedAt;
 
-    public function __construct(?array $config = null)
+    public function __construct()
     {
-        $this->setConfig($config ?? config('viva-wallet'));
+        $this->setConfig(config('viva-wallet'));
+
+        self::$instance = $this;
     }
 
     public function setConfig(array $config): static
@@ -87,7 +91,7 @@ class Token implements AuthToken
         return now()->gte($this->issuedAt->addSeconds($this->getExpiresIn()));
     }
 
-    private function requestToken(): static
+    private function requestToken(): self
     {
         $response = $this->request(
             ...$this->env->requestToken(
@@ -107,9 +111,17 @@ class Token implements AuthToken
         return $this;
     }
 
-    public static function getInstance(): static
+    public static function getInstance(): self
     {
-        return Cache::get(self::CACHE_KEY) ?? (new self())->requestToken();
+        if ($instance = Cache::get(self::CACHE_KEY)) {
+            return $instance;
+        }
+
+        if ($instance = self::$instance?->requestToken()) {
+            return $instance;
+        }
+
+        return (new self)->requestToken();
     }
 
     public function refresh(): static
