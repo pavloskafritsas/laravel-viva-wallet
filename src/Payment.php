@@ -161,7 +161,7 @@ class Payment
 
     public function setCustomerTrns(?string $customerTrns): static
     {
-        if (!$customerTrns && strlen($customerTrns) > 2048) {
+        if (! $customerTrns && strlen($customerTrns) > 2048) {
             throw new InvalidArgumentException('CustomerTrns length must be less than or equal to 2048.');
         }
 
@@ -279,7 +279,7 @@ class Payment
     {
         if ($tags) {
             collect($tags)->each(function (mixed $tag) {
-                if (!is_string($tag)) {
+                if (! is_string($tag)) {
                     throw new InvalidArgumentException('tags must be an array of strings.');
                 }
             });
