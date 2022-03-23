@@ -2,7 +2,7 @@
 
 namespace Deyjandi\VivaWallet\Enums;
 
-enum VivaWalletRequestLang: string
+enum RequestLang: string
 {
     case Bulgarian = 'bg-BG';
     case Croatian = 'hr-HR';

@@ -10,7 +10,7 @@ namespace Deyjandi\VivaWallet\Enums;
  *
  * @see https://developer.vivawallet.com/integration-reference/response-codes/#transactiontypeid-parameter
  */
-enum VivaWalletTransactionType: int
+enum TransactionType: int
 {
     case CardCapture = 0;
     case CardPreAuth = 1;

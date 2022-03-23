@@ -2,14 +2,14 @@
 
 namespace Deyjandi\VivaWallet;
 
-use Deyjandi\VivaWallet\Enums\VivaWalletRequestLang;
+use Deyjandi\VivaWallet\Enums\RequestLang;
 use Deyjandi\VivaWallet\Traits\FiltersUnsetData;
 use InvalidArgumentException;
 
 /**
  * Information about the customer.
  */
-class VivaWalletCustomer
+class Customer
 {
     use FiltersUnsetData;
 
@@ -43,14 +43,14 @@ class VivaWalletCustomer
      * It determines the language that Smart Checkout will appear in, and so on.
      * If left unspecified it is filled based on the countryCode property.
      */
-    private ?VivaWalletRequestLang $requestLang;
+    private ?RequestLang $requestLang;
 
     public function __construct(
         ?string $email = null,
         ?string $fullName = null,
         ?string $phone = null,
         ?string $countryCode = null,
-        ?VivaWalletRequestLang $requestLang = null,
+        ?RequestLang $requestLang = null,
     ) {
         $this->setEmail($email)
             ->setFullName($fullName)
@@ -119,7 +119,7 @@ class VivaWalletCustomer
         return $this;
     }
 
-    public function setRequestLang(?VivaWalletRequestLang $requestLang): static
+    public function setRequestLang(?RequestLang $requestLang): static
     {
         $this->requestLang = $requestLang;
 

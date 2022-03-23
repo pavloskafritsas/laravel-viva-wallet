@@ -2,15 +2,15 @@
 
 namespace Deyjandi\VivaWallet\Traits;
 
-use Deyjandi\VivaWallet\Enums\VivaWalletEnv;
+use Deyjandi\VivaWallet\Enums\Environment;
 
 trait HasEnv
 {
-    private VivaWalletEnv $env;
+    private Environment $env;
 
-    public function setEnv(string|VivaWalletEnv $env): static
+    public function setEnv(string|Environment $env): static
     {
-        $this->env = is_string($env) ? VivaWalletEnv::from($env) : $env;
+        $this->env = is_string($env) ? Environment::from($env) : $env;
 
         return $this;
     }

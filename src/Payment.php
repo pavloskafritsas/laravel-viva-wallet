@@ -2,13 +2,13 @@
 
 namespace Deyjandi\VivaWallet;
 
-use Deyjandi\VivaWallet\Enums\VivaWalletPaymentMethod;
+use Deyjandi\VivaWallet\Enums\PaymentMethod;
 use Deyjandi\VivaWallet\Traits\FiltersUnsetData;
 use Deyjandi\VivaWallet\Traits\HasClient;
 use Deyjandi\VivaWallet\Traits\HasEnv;
 use InvalidArgumentException;
 
-class VivaWalletPayment
+class Payment
 {
     use FiltersUnsetData;
     use HasClient;
@@ -34,7 +34,7 @@ class VivaWalletPayment
     /**
      * Information about the customer.
      */
-    private ?VivaWalletCustomer $customer = null;
+    private ?Customer $customer = null;
 
     /**
      * The time given to the customer to complete the payment.
@@ -144,7 +144,7 @@ class VivaWalletPayment
 
     private ?string $brandColor = null;
 
-    private ?VivaWalletPaymentMethod $preselectedPaymentMethod = null;
+    private ?PaymentMethod $preselectedPaymentMethod = null;
 
     public function setAmount(int $amount): static
     {
@@ -161,7 +161,7 @@ class VivaWalletPayment
 
     public function setCustomerTrns(?string $customerTrns): static
     {
-        if (! $customerTrns && strlen($customerTrns) > 2048) {
+        if (!$customerTrns && strlen($customerTrns) > 2048) {
             throw new InvalidArgumentException('CustomerTrns length must be less than or equal to 2048.');
         }
 
@@ -170,7 +170,7 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function setCustomer(?VivaWalletCustomer $customer): static
+    public function setCustomer(?Customer $customer): static
     {
         $this->customer = $customer;
 
@@ -279,7 +279,7 @@ class VivaWalletPayment
     {
         if ($tags) {
             collect($tags)->each(function (mixed $tag) {
-                if (! is_string($tag)) {
+                if (!is_string($tag)) {
                     throw new InvalidArgumentException('tags must be an array of strings.');
                 }
             });
@@ -297,10 +297,10 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function setPreselectedPaymentMethod(null|string|VivaWalletPaymentMethod $paymentMethod): static
+    public function setPreselectedPaymentMethod(null|string|PaymentMethod $paymentMethod): static
     {
         if ($paymentMethod && is_string($paymentMethod)) {
-            $paymentMethod = VivaWalletPaymentMethod::from($paymentMethod);
+            $paymentMethod = PaymentMethod::from($paymentMethod);
         }
 
         $this->preselectedPaymentMethod = $paymentMethod;
@@ -308,7 +308,7 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function __construct(?int $amount = null, ?VivaWalletCustomer $customer = null)
+    public function __construct(?int $amount = null, ?Customer $customer = null)
     {
         if ($amount) {
             $this->setAmount($amount);
@@ -353,7 +353,7 @@ class VivaWalletPayment
 
     public function createOrder(): string
     {
-        if (! isset($this->amount)) {
+        if (!isset($this->amount)) {
             throw new InvalidArgumentException('You need to set the payment amount before creating the order.', 500);
         }
 
