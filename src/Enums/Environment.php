@@ -3,9 +3,9 @@
 namespace Deyjandi\VivaWallet\Enums;
 
 use Deyjandi\VivaWallet\Helpers\ClientAuth;
-use Deyjandi\VivaWallet\VivaWalletToken;
+use Deyjandi\VivaWallet\Token;
 
-enum VivaWalletEnv: string
+enum Environment: string
 {
     case Demo = 'demo';
     case Live = 'live';
@@ -50,7 +50,7 @@ enum VivaWalletEnv: string
             },
             'options' => [
                 'headers' => [
-                    'Authorization' => ClientAuth::token(VivaWalletToken::getInstance()),
+                    'Authorization' => ClientAuth::token(Token::getInstance()),
                     'Content-Type' => 'application/json',
                 ],
                 'json' => $data,
@@ -76,7 +76,7 @@ enum VivaWalletEnv: string
             },
             'options' => [
                 'headers' => [
-                    'Authorization' => ClientAuth::token(VivaWalletToken::getInstance()),
+                    'Authorization' => ClientAuth::token(Token::getInstance()),
                 ],
             ],
         ];

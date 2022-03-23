@@ -7,7 +7,7 @@ namespace Deyjandi\VivaWallet\Enums;
  *
  * @see https://developer.vivawallet.com/integration-reference/response-codes/#electronic-commerce-indicator
  */
-enum VivaWalletEci: int
+enum Eci: int
 {
     case Unspecified = 0;
     case Authenticated = 1;

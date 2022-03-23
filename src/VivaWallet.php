@@ -16,18 +16,18 @@ class VivaWallet
         return (new VivaWalletWebhook($this->config))->requestKey();
     }
 
-    public function createPaymentOrder(VivaWalletPayment $payment, ?VivaWalletCustomer $customer = null): string
+    public function createPaymentOrder(Payment $payment, ?Customer $customer = null): string
     {
-        $orderCode = $payment
-            ->setConfig($this->config)
-            ->setCustomer($customer)
-            ->createOrder();
-
-        return $payment->getCheckoutUrl($orderCode);
+        return $payment->getCheckoutUrl(
+            $payment
+                ->setConfig($this->config)
+                ->setCustomer($customer)
+                ->createOrder()
+        );
     }
 
-    public function retrieveTransaction(string $transaction_id): array
+    public function retrieveTransaction(string $transactionId): array
     {
-        return (new VivaWalletTransaction($this->config))->retrieve($transaction_id);
+        return (new VivaWalletTransaction($this->config))->retrieve($transactionId);
     }
 }

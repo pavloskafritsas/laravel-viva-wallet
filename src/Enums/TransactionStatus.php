@@ -7,7 +7,7 @@ namespace Deyjandi\VivaWallet\Enums;
  *
  * @see https://developer.vivawallet.com/integration-reference/response-codes/#statusid-parameter
  */
-enum VivaWalletTransactionStatus: string
+enum TransactionStatus: string
 {
     case PaymentUnsuccessful = 'E';
     case PaymentPending = 'A';

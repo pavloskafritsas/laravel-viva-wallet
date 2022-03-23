@@ -1,6 +1,6 @@
 <?php
 
-use Deyjandi\VivaWallet\Enums\VivaWalletPaymentMethod;
+use Deyjandi\VivaWallet\Enums\PaymentMethod;
 
 return [
 
@@ -119,7 +119,7 @@ return [
 
         'brand_color' => env('VIVA_WALLET_PAYMENT_BRAND_COLOR', '06abc1'),
 
-        'preselected_method' => env('VIVA_WALLET_PAYMENT_PRESELECTED_METHOD', VivaWalletPaymentMethod::CreditCard)
+        'preselected_method' => env('VIVA_WALLET_PAYMENT_PRESELECTED_METHOD', PaymentMethod::CreditCard)
 
     ],
 ];

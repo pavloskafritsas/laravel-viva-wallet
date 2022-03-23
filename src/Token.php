@@ -8,7 +8,7 @@ use Deyjandi\VivaWallet\Traits\HasClient;
 use Deyjandi\VivaWallet\Traits\HasEnv;
 use Illuminate\Support\Facades\Cache;
 
-class VivaWalletToken implements AuthToken
+class Token implements AuthToken
 {
     use HasClient;
     use HasEnv;
