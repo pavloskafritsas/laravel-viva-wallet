@@ -124,7 +124,7 @@ class Token implements AuthToken
         return (new self())->requestToken();
     }
 
-    public function refresh(): static
+    public function refresh(): self
     {
         return $this->requestToken();
     }
