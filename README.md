@@ -1,6 +1,8 @@
 
-# Implementation of Viva Wallet's API for Laravel
+# Viva Wallet's API for Laravel applications
 
+![PHP Version](https://img.shields.io/packagist/php-v/deyjandi/laravel-viva-wallet)
+![Laravel Version](https://img.shields.io/badge/laravel-%3E%3D8-red)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/deyjandi/laravel-viva-wallet.svg?style=flat-square)](https://packagist.org/packages/deyjandi/laravel-viva-wallet)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/deyjandi/laravel-viva-wallet/run-tests?label=tests)](https://github.com/deyjandi/laravel-viva-wallet/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/deyjandi/laravel-viva-wallet/Check%20&%20fix%20styling?label=code%20style)](https://github.com/deyjandi/laravel-viva-wallet/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
@@ -39,6 +41,7 @@ You can refer to the `./config/viva-wallet-config.php` for additional configurat
 
 ```php
 ...
+
 use Deyjandi\VivaWallet\Facades\VivaWallet;
 use Deyjandi\VivaWallet\Payment;
 
@@ -55,6 +58,7 @@ $checkoutUrl = VivaWallet::createPaymentOrder($payment);
 
 ```php
 ...
+
 use Deyjandi\VivaWallet\Enums\RequestLang;
 use Deyjandi\VivaWallet\Enums\PaymentMethod;
 use Deyjandi\VivaWallet\Facades\VivaWallet;
@@ -98,8 +102,22 @@ $checkoutUrl = VivaWallet::createPaymentOrder($payment);
 ```
 
 
+### Retrieve transaction:
+
+```php
+...
+
+use Deyjandi\VivaWallet\Facades\VivaWallet;
+
+...
+
+$transaction = VivaWallet::retrieveTransaction($transactionId);
+
+```
+
 ### Request a webhook verification key:
-```bash
+
+```zsh
 php artisan viva-wallet:webhook-key
 ```
 #### the webhook verification key is stored to the `.env` file automatically
