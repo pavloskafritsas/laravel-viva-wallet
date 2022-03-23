@@ -4,7 +4,7 @@ namespace Deyjandi\VivaWallet\Contracts;
 
 interface AuthToken
 {
-    public static function getInstance(): static;
+    public static function getInstance(): self;
 
     public function getAccessToken(): string;
 
