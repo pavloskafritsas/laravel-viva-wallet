@@ -1,11 +1,11 @@
 <?php
 
 use Deyjandi\VivaWallet\Facades\VivaWallet;
-use Deyjandi\VivaWallet\VivaWalletPayment;
+use Deyjandi\VivaWallet\Payment;
 
 it('can create payment order', function () {
     expect(
-        VivaWallet::createPaymentOrder(new VivaWalletPayment(1000))
+        VivaWallet::createPaymentOrder(new Payment(1000))
     )->toBeString();
 });
 

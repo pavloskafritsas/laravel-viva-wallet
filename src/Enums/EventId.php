@@ -5,7 +5,7 @@ namespace Deyjandi\VivaWallet\Enums;
 /**
  * @see https://developer.vivawallet.com/integration-reference/response-codes/#event-id-codes
  */
-enum VivaWalletEventId: int
+enum EventId: int
 {
     case Undefined = 0;
     case Incomplete3dsFlow = 2061;

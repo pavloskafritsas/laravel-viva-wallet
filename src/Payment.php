@@ -2,13 +2,13 @@
 
 namespace Deyjandi\VivaWallet;
 
-use Deyjandi\VivaWallet\Enums\VivaWalletPaymentMethod;
+use Deyjandi\VivaWallet\Enums\PaymentMethod;
 use Deyjandi\VivaWallet\Traits\FiltersUnsetData;
 use Deyjandi\VivaWallet\Traits\HasClient;
 use Deyjandi\VivaWallet\Traits\HasEnv;
 use InvalidArgumentException;
 
-class VivaWalletPayment
+class Payment
 {
     use FiltersUnsetData;
     use HasClient;
@@ -34,7 +34,7 @@ class VivaWalletPayment
     /**
      * Information about the customer.
      */
-    private ?VivaWalletCustomer $customer = null;
+    private ?Customer $customer = null;
 
     /**
      * The time given to the customer to complete the payment.
@@ -144,7 +144,7 @@ class VivaWalletPayment
 
     private ?string $brandColor = null;
 
-    private ?VivaWalletPaymentMethod $preselectedPaymentMethod = null;
+    private ?PaymentMethod $preselectedPaymentMethod = null;
 
     public function setAmount(int $amount): static
     {
@@ -170,7 +170,7 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function setCustomer(?VivaWalletCustomer $customer): static
+    public function setCustomer(?Customer $customer): static
     {
         $this->customer = $customer;
 
@@ -297,10 +297,10 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function setPreselectedPaymentMethod(null|string|VivaWalletPaymentMethod $paymentMethod): static
+    public function setPreselectedPaymentMethod(null|string|PaymentMethod $paymentMethod): static
     {
         if ($paymentMethod && is_string($paymentMethod)) {
-            $paymentMethod = VivaWalletPaymentMethod::from($paymentMethod);
+            $paymentMethod = PaymentMethod::from($paymentMethod);
         }
 
         $this->preselectedPaymentMethod = $paymentMethod;
@@ -308,16 +308,14 @@ class VivaWalletPayment
         return $this;
     }
 
-    public function __construct(int $amount, ?VivaWalletCustomer $customer = null, ?array $config = null)
+    public function __construct(?int $amount = null, ?Customer $customer = null)
     {
-        $this->setAmount($amount);
+        if ($amount) {
+            $this->setAmount($amount);
+        }
 
         if ($customer) {
             $this->setCustomer($customer);
-        }
-
-        if ($config) {
-            $this->setConfig($config);
         }
     }
 
@@ -355,6 +353,10 @@ class VivaWalletPayment
 
     public function createOrder(): string
     {
+        if (! isset($this->amount)) {
+            throw new InvalidArgumentException('You need to set the payment amount before creating the order.', 500);
+        }
+
         return $this->request(...$this->env->createOrder($this->toArray()))['orderCode'];
     }
 

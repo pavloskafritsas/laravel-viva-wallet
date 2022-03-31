@@ -2,7 +2,7 @@
 
 namespace Deyjandi\VivaWallet\Enums;
 
-enum VivaWalletPaymentMethod: int
+enum PaymentMethod: int
 {
     case CreditCard = 0;
     case PayPal = 23;

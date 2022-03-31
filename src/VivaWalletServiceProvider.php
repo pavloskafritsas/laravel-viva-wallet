@@ -15,7 +15,7 @@ class VivaWalletServiceProvider extends PackageServiceProvider
         if ($this->app->runningInConsole() || $this->app->runningUnitTests()) {
             $this->publishes([
                 __DIR__ . '/../config/viva-wallet.php' => config_path('viva-wallet.php'),
-            ], 'config');
+            ], 'viva-wallet-config');
 
             $this->commands([RequestWebhookKey::class]);
         }

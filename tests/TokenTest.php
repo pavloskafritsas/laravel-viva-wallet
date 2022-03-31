@@ -1,22 +1,22 @@
 <?php
 
-use Deyjandi\VivaWallet\VivaWalletToken;
+use Deyjandi\VivaWallet\Token;
 use Illuminate\Support\Carbon;
 
 it('can issue auth token', function () {
-    $token = VivaWalletToken::getInstance();
+    $token = Token::getInstance();
 
     expect($token->getAccessToken())->toBeString();
 });
 
 it('can hit cache', function () {
-    $token = VivaWalletToken::getInstance();
+    $token = Token::getInstance();
 
     expect(cache('viva_wallet_token'))->toEqual($token);
 });
 
 it('can expire', function () {
-    $token = VivaWalletToken::getInstance();
+    $token = Token::getInstance();
 
     Carbon::setTestNow(now()->addSeconds($token->getExpiresIn()));
 
