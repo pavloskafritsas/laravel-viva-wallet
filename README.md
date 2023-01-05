@@ -4,12 +4,9 @@
 ![PHP Version](https://img.shields.io/packagist/php-v/deyjandi/laravel-viva-wallet)
 ![Laravel Version](https://img.shields.io/badge/laravel-%3E%3D8-red)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/deyjandi/laravel-viva-wallet.svg?style=flat-square)](https://packagist.org/packages/deyjandi/laravel-viva-wallet)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/deyjandi/laravel-viva-wallet/run-tests?label=tests)](https://github.com/deyjandi/laravel-viva-wallet/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/deyjandi/laravel-viva-wallet/Check%20&%20fix%20styling?label=code%20style)](https://github.com/deyjandi/laravel-viva-wallet/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/Deyjandi/laravel-viva-wallet/run-tests.yml?branch=main&style=flat-square)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/Deyjandi/laravel-viva-wallet/php-cs-fixer.yml?branch=main&label=code%20style&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/deyjandi/laravel-viva-wallet.svg?style=flat-square)](https://packagist.org/packages/deyjandi/laravel-viva-wallet)
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
 
 ## Installation steps
 
